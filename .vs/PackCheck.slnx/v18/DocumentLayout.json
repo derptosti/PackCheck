@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\TijlP\\Downloads\\School\\Thomas More\\2026-2027\\AI.NET\\Project 1\\PackCheck\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{04A3D774-44F7-A02F-3A27-457C340979C5}|PackCheck\\PackCheck.csproj|c:\\users\\tijlp\\downloads\\school\\thomas more\\2026-2027\\ai.net\\project 1\\packcheck\\packcheck\\models\\packingitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04A3D774-44F7-A02F-3A27-457C340979C5}|PackCheck\\PackCheck.csproj|solutionrelative:packcheck\\models\\packingitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04A3D774-44F7-A02F-3A27-457C340979C5}|PackCheck\\PackCheck.csproj|c:\\users\\tijlp\\downloads\\school\\thomas more\\2026-2027\\ai.net\\project 1\\packcheck\\packcheck\\models\\trip.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04A3D774-44F7-A02F-3A27-457C340979C5}|PackCheck\\PackCheck.csproj|solutionrelative:packcheck\\models\\trip.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,6 +59,32 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PackingItem.cs",
+              "DocumentMoniker": "C:\\Users\\TijlP\\Downloads\\School\\Thomas More\\2026-2027\\AI.NET\\Project 1\\PackCheck\\PackCheck\\Models\\PackingItem.cs",
+              "RelativeDocumentMoniker": "PackCheck\\Models\\PackingItem.cs",
+              "ToolTip": "C:\\Users\\TijlP\\Downloads\\School\\Thomas More\\2026-2027\\AI.NET\\Project 1\\PackCheck\\PackCheck\\Models\\PackingItem.cs",
+              "RelativeToolTip": "PackCheck\\Models\\PackingItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-27T12:47:24.007Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Trip.cs",
+              "DocumentMoniker": "C:\\Users\\TijlP\\Downloads\\School\\Thomas More\\2026-2027\\AI.NET\\Project 1\\PackCheck\\PackCheck\\Models\\Trip.cs",
+              "RelativeDocumentMoniker": "PackCheck\\Models\\Trip.cs",
+              "ToolTip": "C:\\Users\\TijlP\\Downloads\\School\\Thomas More\\2026-2027\\AI.NET\\Project 1\\PackCheck\\PackCheck\\Models\\Trip.cs",
+              "RelativeToolTip": "PackCheck\\Models\\Trip.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAYwBQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-27T12:46:39.807Z",
+              "EditorCaption": ""
             }
           ]
         },

@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PackCheck")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+fa086bc18481cbab1406729200d4fc5c138ea239")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+2557a9a3235ad88e759a48657536d8db6cd06a14")]
 [assembly: System.Reflection.AssemblyProductAttribute("PackCheck")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PackCheck")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
