@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="PackCheck.Api/PackCheck.Api.csproj" Id="1b43f62a-74ca-4430-86fc-61442659e0b1" />
+  <Project Path="PackCheck.Core/PackCheck.Core.csproj" Id="88259c1b-51b8-4c33-983c-951ca22b0a2a" />
+  <Project Path="PackCheck.Infrastructure/PackCheck.Infrastructure.csproj" Id="14b5c547-85a2-4179-b92f-f7e8728d9926" />
   <Project Path="PackCheck/PackCheck.csproj" />
 </Solution>

@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using PackCheck.ViewModels;
+using PackCheck.ViewModels.Interfaces;
+using PackCheck.Views;
 
 namespace PackCheck
 {
@@ -18,6 +21,8 @@ namespace PackCheck
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddTransient<ITripsViewModel, TripsViewModel>();
+            builder.Services.AddTransient<TripsPage>();
 
             return builder.Build();
         }
