@@ -1,0 +1,57 @@
+# .NET build output
+[Bb]in/
+[Oo]bj/
+artifacts/
+
+# Visual Studio: local settings and caches
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.userprefs
+
+# Test results and coverage
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+
+# NuGet restore output (keep NuGet.Config and packages.lock.json)
+**/packages/*
+!**/packages/build/
+*.nupkg
+*.snupkg
+
+# MAUI app packages
+*.apk
+*.aab
+*.ipa
+*.app/
+*.msix
+*.msixbundle
+*.appx
+*.appxbundle
+
+# Signing keys, certificates, and provisioning profiles
+*.keystore
+*.jks
+*.pfx
+*.p12
+*.mobileprovision
+*.provisionprofile
+
+# Machine-specific publishing settings
+*.pubxml.user
+
+# Local environment secrets
+.env
+.env.*
+!.env.example
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
