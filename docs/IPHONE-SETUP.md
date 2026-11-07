@@ -40,6 +40,8 @@ The existing unsigned IPA / Payload / Sideloadly route is retained. There is no 
 
 Your workflow's project search should find `PackCheck/PackCheck.csproj`. You can set that path directly if you want to avoid project discovery in this multi-project solution.
 
+The workflow lets `dotnet publish -f net10.0-ios` restore dependencies before building. This preserves `PackCheck.Contracts` as a plain `net10.0` library. A separate `dotnet restore -p:TargetFramework=net10.0-ios` applies that framework override to the referenced library as well; publishing with `--no-restore` then fails with `NETSDK1005` because its `net10.0` assets are missing. Keep the built-in publish restore enabled.
+
 Keep the installed .NET MAUI workload compatible with the selected Xcode version. Microsoft's documented Xcode 27.1 pairing is .NET SDK `10.0.402` with workload set `10.0.402.1`; MAUI `10.0.110` or newer is recommended for scene lifecycle support. Your current `10.0.x` / latest-workload approach can remain in place when its installed versions match. If a runner reports a toolchain mismatch, use the exact matching versions rather than disabling Xcode version validation.
 
 The source changes have been checked locally for plist structure and platform inclusion. Building the IPA and verifying cold launch, camera/photo access and API connectivity on the iPhone still require the macOS GitHub runner and your device.
