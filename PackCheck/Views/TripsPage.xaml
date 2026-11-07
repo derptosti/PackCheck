@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PackCheck.ViewModels"
+             xmlns:contracts="clr-namespace:PackCheck.Contracts;assembly=PackCheck.Contracts"
+             xmlns:behaviors="clr-namespace:PackCheck.Behaviors"
+             x:Class="PackCheck.Views.TripsPage" x:DataType="vm:ITripsViewModel"
+             Title="PackCheck" BackgroundColor="#F5F6F2">
+    <ContentPage.Behaviors><behaviors:PageLifecycleBehavior /></ContentPage.Behaviors>
+    <ContentPage.ToolbarItems><ToolbarItem Text="Settings" Command="{Binding SettingsCommand}" /></ContentPage.ToolbarItems>
+    <Grid Padding="24" RowDefinitions="Auto,Auto,Auto,*,Auto" RowSpacing="16" MaximumWidthRequest="880" HorizontalOptions="Fill">
+        <VerticalStackLayout Spacing="6">
+            <Label Text="PACKCHECK" FontSize="12" CharacterSpacing="3" FontAttributes="Bold" TextColor="#16796F" />
+            <Label Text="Your trips" FontSize="32" FontAttributes="Bold" TextColor="#142B35" />
+            <Label Text="Know what you have packed. See what is still missing." TextColor="#566975" />
+        </VerticalStackLayout>
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" ColumnSpacing="12">
+            <Button Text="+ New trip" Command="{Binding CreateTripCommand}" HorizontalOptions="Start" />
+            <Button Grid.Column="1" Text="Refresh" Command="{Binding RefreshCommand}" BackgroundColor="Transparent" TextColor="#16796F" />
+        </Grid>
+        <VerticalStackLayout Grid.Row="2" Spacing="8">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#16796F" />
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="#9F2D29" />
+        </VerticalStackLayout>
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Trips}" SelectionMode="None">
+            <CollectionView.ItemsLayout><LinearItemsLayout Orientation="Vertical" ItemSpacing="12" /></CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Padding="18,42" Spacing="12" HorizontalOptions="Center">
+                    <Label Text="A fresh start for your next trip" FontSize="21" FontAttributes="Bold" TextColor="#142B35" HorizontalTextAlignment="Center" />
+                    <Label Text="Create a trip and choose a checklist template.&#10;Your saved trips will appear here." TextColor="#566975" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="contracts:TripDto">
+                    <Border Padding="20" BackgroundColor="White" Stroke="#DCE4DE" StrokeShape="RoundRectangle 16">
+                        <VerticalStackLayout Spacing="9">
+                            <Label Text="{Binding Name}" FontSize="22" FontAttributes="Bold" TextColor="#142B35" />
+                            <Label Text="{Binding Subtitle}" TextColor="#566975" FontSize="13" />
+                            <ProgressBar Progress="{Binding Progress}" ProgressColor="#16796F" BackgroundColor="#E3EAE4" />
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Text="{Binding ProgressText}" FontAttributes="Bold" TextColor="#16796F" />
+                                <Label Grid.Column="1" Text="{Binding MissingEssentials, StringFormat='{0} essentials missing'}" TextColor="#566975" FontSize="12" />
+                            </Grid>
+                            <Button x:DataType="{x:Null}" Text="Open checklist" BackgroundColor="#ECF3EC" TextColor="#16796F" HorizontalOptions="Start"
+                                    Command="{Binding OpenTripCommand, Source={RelativeSource AncestorType={x:Type vm:ITripsViewModel}}}" CommandParameter="{Binding .}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Label Grid.Row="4" Text="One item at a time. Every trip in one place." FontSize="12" TextColor="#566975" HorizontalTextAlignment="Center" />
+    </Grid>
+</ContentPage>

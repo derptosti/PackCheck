@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PackCheck.ViewModels"
+             xmlns:behaviors="clr-namespace:PackCheck.Behaviors"
+             x:Class="PackCheck.Views.CreateTripPage" x:DataType="vm:ICreateTripViewModel"
+             Title="New trip" BackgroundColor="#F5F6F2">
+    <ContentPage.Behaviors><behaviors:PageLifecycleBehavior /></ContentPage.Behaviors>
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="18" MaximumWidthRequest="640" HorizontalOptions="Fill">
+            <Label Text="Where are you heading?" FontSize="28" FontAttributes="Bold" TextColor="#142B35" />
+            <Label Text="Start with a template, then make the checklist your own." TextColor="#566975" />
+            <Label Text="Trip name" FontAttributes="Bold" />
+            <Entry Text="{Binding Name}" Placeholder="e.g. Weekend in the Ardennes" MaxLength="100" ReturnType="Next" />
+            <Label Text="Departure date" FontAttributes="Bold" />
+            <DatePicker Date="{Binding DepartureDate}" Format="ddd, d MMM yyyy" />
+            <Label Text="Packing template" FontAttributes="Bold" />
+            <Picker Title="Choose a template" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}" />
+            <Label Text="{Binding SelectedTemplate.Description}" TextColor="#566975" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#16796F" />
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="#9F2D29" />
+            <Button Text="Create trip" Command="{Binding SaveCommand}" />
+            <Button Text="Reload templates" Command="{Binding ReloadCommand}" BackgroundColor="Transparent" TextColor="#16796F" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

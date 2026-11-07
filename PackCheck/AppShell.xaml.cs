@@ -2,9 +2,10 @@
 {
     public partial class AppShell : Shell
     {
-        public AppShell()
+        public AppShell(PackCheck.Views.TripsPage tripsPage)
         {
             InitializeComponent();
+            TripsContent.Content = tripsPage;
         }
     }
 }

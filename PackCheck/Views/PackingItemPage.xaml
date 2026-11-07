@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PackCheck.ViewModels"
+             xmlns:behaviors="clr-namespace:PackCheck.Behaviors"
+             x:Class="PackCheck.Views.PackingItemPage" x:DataType="vm:IPackingItemViewModel"
+             Title="{Binding PageTitle}" BackgroundColor="#F5F6F2">
+    <ContentPage.Behaviors><behaviors:PageLifecycleBehavior /></ContentPage.Behaviors>
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16" MaximumWidthRequest="640" HorizontalOptions="Fill">
+            <Label Text="{Binding PageTitle}" FontSize="28" FontAttributes="Bold" TextColor="#142B35" />
+            <Label Text="Track any item manually. Choose a scan category for items the model can recognize." TextColor="#566975" />
+            <Label Text="Item name" FontAttributes="Bold" />
+            <Entry Text="{Binding Name}" Placeholder="e.g. Sleeping bag" MaxLength="100" />
+            <Label Text="Scan category" FontAttributes="Bold" />
+            <Picker Title="Manual item" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" />
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="18" RowSpacing="8">
+                <Label Text="How many needed?" FontAttributes="Bold" />
+                <Label Grid.Column="1" Text="Already packed" FontAttributes="Bold" />
+                <Entry Grid.Row="1" Text="{Binding RequiredQuantityText}" Keyboard="Numeric" MaxLength="3" />
+                <Entry Grid.Row="1" Grid.Column="1" Text="{Binding PackedQuantityText}" Keyboard="Numeric" MaxLength="3" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="Essential item" FontAttributes="Bold" />
+                    <Label Text="Highlight it while it is still missing." FontSize="12" TextColor="#566975" />
+                </VerticalStackLayout>
+                <Switch Grid.Column="1" IsToggled="{Binding IsEssential}" OnColor="#16796F" />
+            </Grid>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#16796F" />
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="#9F2D29" />
+            <Button Text="Retry loading item" Command="{Binding RetryLoadCommand}" IsVisible="{Binding NeedsItemLoad}" BackgroundColor="#E4EDE4" TextColor="#16796F" />
+            <Button Text="Save item" Command="{Binding SaveCommand}" IsEnabled="{Binding CanSave}" />
+            <Button Text="Delete item" Command="{Binding DeleteCommand}" IsVisible="{Binding CanDelete}" IsEnabled="{Binding CanSave}" BackgroundColor="Transparent" TextColor="#9F2D29" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,107 @@
+name: Build iPhone IPA
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - master
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build-ios:
+    runs-on: xcode-27
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Show versions
+        run: |
+          dotnet --version
+          xcodebuild -version
+
+      - name: Install .NET MAUI workload
+        run: dotnet workload install maui
+
+      - name: Find MAUI project
+        shell: bash
+        run: |
+          PROJECT=$(grep -rl "net10.0-ios" \
+            --include="*.csproj" . \
+            | head -n 1)
+
+          if [ -z "$PROJECT" ]; then
+            echo "ERROR: No .NET 10 iOS MAUI project found."
+            exit 1
+          fi
+
+          PROJECT_NAME=$(basename "$PROJECT" .csproj)
+
+          echo "PROJECT=$PROJECT" >> "$GITHUB_ENV"
+          echo "PROJECT_NAME=$PROJECT_NAME" >> "$GITHUB_ENV"
+
+      - name: Set version
+        shell: bash
+        run: |
+          VERSION="1.${{ github.run_number }}"
+          BUILD_NUMBER="${{ github.run_number }}"
+
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_ENV"
+
+      - name: Restore iOS project
+        run: |
+          dotnet restore "$PROJECT" \
+            -p:TargetFramework=net10.0-ios \
+            -r ios-arm64
+
+      - name: Build iPhone app
+        run: |
+          dotnet publish "$PROJECT" \
+            -f net10.0-ios \
+            -c Release \
+            -r ios-arm64 \
+            --no-restore \
+            -p:EnableCodeSigning=false \
+            -p:ApplicationDisplayVersion="$VERSION" \
+            -p:ApplicationVersion="$BUILD_NUMBER"
+
+      - name: Find generated app
+        shell: bash
+        run: |
+          APP=$(find . \
+            -path "*/bin/Release/net10.0-ios/ios-arm64/*.app" \
+            -type d \
+            | head -n 1)
+
+          if [ -z "$APP" ]; then
+            echo "ERROR: No .app bundle was found."
+            exit 1
+          fi
+
+          echo "APP_PATH=$APP" >> "$GITHUB_ENV"
+
+      - name: Create IPA
+        shell: bash
+        run: |
+          mkdir -p ipa/Payload
+          cp -R "$APP_PATH" ipa/Payload/
+
+          cd ipa
+          zip -qry "../$PROJECT_NAME-v$VERSION.ipa" Payload
+          cd ..
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PROJECT_NAME }}-v${{ env.VERSION }}
+          path: ${{ env.PROJECT_NAME }}-v${{ env.VERSION }}.ipa

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PackCheck.ViewModels"
+             xmlns:contracts="clr-namespace:PackCheck.Contracts;assembly=PackCheck.Contracts"
+             xmlns:behaviors="clr-namespace:PackCheck.Behaviors"
+             x:Class="PackCheck.Views.TripDetailPage" x:DataType="vm:ITripDetailViewModel"
+             Title="Checklist" BackgroundColor="#F5F6F2">
+    <ContentPage.Behaviors><behaviors:PageLifecycleBehavior /></ContentPage.Behaviors>
+    <ContentPage.ToolbarItems><ToolbarItem Text="Refresh" Command="{Binding RefreshCommand}" /></ContentPage.ToolbarItems>
+    <Grid Padding="24" RowDefinitions="Auto,Auto,Auto,*,Auto" RowSpacing="14" MaximumWidthRequest="880" HorizontalOptions="Fill">
+        <Border Padding="20" BackgroundColor="#142B35" StrokeShape="RoundRectangle 16" StrokeThickness="0">
+            <VerticalStackLayout Spacing="9">
+                <Label Text="{Binding Trip.Name}" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                <Label Text="{Binding Trip.Subtitle}" FontSize="13" TextColor="#D7E7DE" />
+                <ProgressBar Progress="{Binding Trip.Progress}" ProgressColor="#92D3B8" BackgroundColor="#36525B" />
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="{Binding Trip.ProgressText}" TextColor="White" FontAttributes="Bold" />
+                    <Label Grid.Column="1" Text="{Binding Trip.MissingEssentials, StringFormat='{0} essentials missing'}" FontSize="12" TextColor="#D7E7DE" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="12">
+            <Button Text="Scan an item" Command="{Binding ScanCommand}" />
+            <Button Grid.Column="1" Text="+ Add item" Command="{Binding AddItemCommand}" BackgroundColor="#E4EDE4" TextColor="#16796F" />
+        </Grid>
+        <VerticalStackLayout Grid.Row="2" Spacing="6">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#16796F" />
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="#9F2D29" />
+            <Label Text="PACKING CHECKLIST" FontSize="12" CharacterSpacing="2" FontAttributes="Bold" TextColor="#566975" />
+        </VerticalStackLayout>
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Items}" SelectionMode="None">
+            <CollectionView.ItemsLayout><LinearItemsLayout Orientation="Vertical" ItemSpacing="10" /></CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <Label Text="Your checklist is empty. Add an item to start packing." Padding="18,32" TextColor="#566975" HorizontalTextAlignment="Center" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="contracts:PackingItemDto">
+                    <Border Padding="16" BackgroundColor="White" Stroke="#DCE4DE" StrokeShape="RoundRectangle 12">
+                        <VerticalStackLayout Spacing="7">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" TextColor="#142B35" />
+                                <Label Grid.Column="1" Text="{Binding QuantityText}" FontSize="13" TextColor="#16796F" VerticalOptions="Center" />
+                            </Grid>
+                            <Label Text="{Binding StatusText}" FontSize="12" TextColor="#566975" />
+                            <HorizontalStackLayout Spacing="8">
+                                <Button x:DataType="{x:Null}" Text="− 1" MinimumWidthRequest="60" BackgroundColor="#ECF3EC" TextColor="#16796F"
+                                        Command="{Binding UnpackOneCommand, Source={RelativeSource AncestorType={x:Type vm:ITripDetailViewModel}}}" CommandParameter="{Binding .}" />
+                                <Button x:DataType="{x:Null}" Text="+ 1" MinimumWidthRequest="60"
+                                        Command="{Binding PackOneCommand, Source={RelativeSource AncestorType={x:Type vm:ITripDetailViewModel}}}" CommandParameter="{Binding .}" />
+                                <Button x:DataType="{x:Null}" Text="Edit" BackgroundColor="Transparent" TextColor="#16796F"
+                                        Command="{Binding EditItemCommand, Source={RelativeSource AncestorType={x:Type vm:ITripDetailViewModel}}}" CommandParameter="{Binding .}" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Grid.Row="4" Text="Delete trip" Command="{Binding DeleteTripCommand}" BackgroundColor="Transparent" TextColor="#9F2D29" HorizontalOptions="Center" />
+    </Grid>
+</ContentPage>

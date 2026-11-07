@@ -4,14 +4,19 @@ namespace PackCheck
 {
     public partial class App : Application
     {
-        public App()
+        private readonly IServiceProvider services;
+
+        public App(IServiceProvider services)
         {
             InitializeComponent();
+            this.services = services;
+            UserAppTheme = AppTheme.Light;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell());
+            // Resolve views after application resources have been initialized.
+            return new Window(services.GetRequiredService<AppShell>());
         }
     }
 }

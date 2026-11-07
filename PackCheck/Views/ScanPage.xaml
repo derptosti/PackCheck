@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PackCheck.ViewModels"
+             xmlns:contracts="clr-namespace:PackCheck.Contracts;assembly=PackCheck.Contracts"
+             xmlns:behaviors="clr-namespace:PackCheck.Behaviors"
+             x:Class="PackCheck.Views.ScanPage" x:DataType="vm:IScanViewModel"
+             Title="Scan an item" BackgroundColor="#F5F6F2">
+    <ContentPage.Behaviors><behaviors:PageLifecycleBehavior /></ContentPage.Behaviors>
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16" MaximumWidthRequest="640" HorizontalOptions="Fill">
+            <Label Text="One photo. One packing item." FontSize="27" FontAttributes="Bold" TextColor="#142B35" />
+            <Label Text="Photograph one item clearly, then review the prediction before adding one to your packed quantity." TextColor="#566975" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Text="Take photo" Command="{Binding CaptureCommand}" />
+                <Button Grid.Column="1" Text="Choose photo" Command="{Binding PickCommand}" BackgroundColor="#E4EDE4" TextColor="#16796F" />
+            </Grid>
+            <Image Source="{Binding PhotoPreview}" IsVisible="{Binding HasPhoto}" HeightRequest="220" Aspect="AspectFit" SemanticProperties.Description="Selected packing item photo" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#16796F" />
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="#9F2D29" />
+            <VerticalStackLayout IsVisible="{Binding HasResult}" Spacing="14">
+                <Label Text="{Binding PredictionSummary}" FontSize="21" FontAttributes="Bold" TextColor="#142B35" />
+                <Label Text="{Binding ConfidenceMessage}" TextColor="#566975" />
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Predictions}" Spacing="4">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="contracts:PredictionDto"><Label Text="{Binding Label}" FontSize="12" TextColor="#566975" /></DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                <Label Text="Confirm or correct the category" FontAttributes="Bold" />
+                <Picker Title="Choose the correct category" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" />
+                <Label Text="Checklist entry to update" FontAttributes="Bold" />
+                <Picker Title="Choose a checklist entry" ItemsSource="{Binding MatchingItems}" SelectedItem="{Binding SelectedItem}" ItemDisplayBinding="{Binding Name, x:DataType=contracts:PackingItemDto}" />
+                <Label Text="{Binding SelectedItem.QuantityText}" TextColor="#16796F" />
+                <Label Text="{Binding SelectedItem.StatusText}" TextColor="#566975" FontSize="12" />
+                <Label Text="Only entries in the selected category appear here. Completed entries cannot receive another packed item." FontSize="12" TextColor="#566975" />
+                <Button Text="Confirm: pack one" Command="{Binding ConfirmCommand}" />
+                <Label Text="{Binding ConfirmationMessage}" TextColor="#16796F" FontAttributes="Bold" />
+            </VerticalStackLayout>
+            <Button Text="Item missing from your checklist? Add it manually" Command="{Binding AddItemCommand}" BackgroundColor="Transparent" TextColor="#16796F" />
+            <Label Text="Supported: backpack, shoes, water bottle, sunglasses, torch and toothbrush. Other items can be packed manually." FontSize="12" TextColor="#566975" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
