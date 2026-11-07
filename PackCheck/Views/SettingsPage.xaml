@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PackCheck.ViewModels"
+             xmlns:behaviors="clr-namespace:PackCheck.Behaviors"
+             x:Class="PackCheck.Views.SettingsPage" x:DataType="vm:ISettingsViewModel"
+             Title="Connection settings" BackgroundColor="#F5F6F2">
+    <ContentPage.Behaviors><behaviors:PageLifecycleBehavior /></ContentPage.Behaviors>
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="18" MaximumWidthRequest="640" HorizontalOptions="Fill">
+            <Label Text="Connect to your API" FontSize="28" FontAttributes="Bold" TextColor="#142B35" />
+            <Label Text="Run the PackCheck API on your computer. For a physical phone, enter its HTTPS ngrok address here." TextColor="#566975" />
+            <Label Text="API base address" FontAttributes="Bold" />
+            <Entry Text="{Binding ApiBaseUrl}" Placeholder="https://your-tunnel.ngrok-free.app/" Keyboard="Url" />
+            <Label Text="Use the server address only. The app adds /api automatically." FontSize="12" TextColor="#566975" />
+            <Label Text="{Binding DefaultApiBaseUrl, StringFormat='Local development default: {0}'}" FontSize="12" TextColor="#566975" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#16796F" />
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="#9F2D29" />
+            <Label Text="{Binding StatusMessage}" TextColor="#16796F" />
+            <Button Text="Save address" Command="{Binding SaveCommand}" />
+            <Button Text="Save and test connection" Command="{Binding TestCommand}" BackgroundColor="#E4EDE4" TextColor="#16796F" />
+            <Button Text="Restore local address" Command="{Binding ResetCommand}" BackgroundColor="Transparent" TextColor="#16796F" />
+            <Label Text="Recognition settings are configured on the API server. Your Azure prediction key stays on that server." FontSize="12" TextColor="#566975" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

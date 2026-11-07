@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PackCheck.Contracts\PackCheck.Contracts.csproj" />
+    <!-- Exercise the real application ViewModels without starting a Windows UI. -->
+    <Compile Include="..\PackCheck\ViewModels\BaseViewModel.cs" Link="Application\BaseViewModel.cs" />
+    <Compile Include="..\PackCheck\ViewModels\ViewModelContracts.cs" Link="Application\ViewModelContracts.cs" />
+    <Compile Include="..\PackCheck\ViewModels\ScanViewModel.cs" Link="Application\ScanViewModel.cs" />
+    <Compile Include="..\PackCheck\ViewModels\PackingItemViewModel.cs" Link="Application\PackingItemViewModel.cs" />
+    <Compile Include="..\PackCheck\ViewModels\TripsViewModel.cs" Link="Application\TripsViewModel.cs" />
+    <Compile Include="..\PackCheck\Services\Contracts.cs" Link="Application\ServiceContracts.cs" />
+    <Compile Include="..\PackCheck\Messages\*.cs" Link="Application\Messages\%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

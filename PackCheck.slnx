@@ -1,3 +1,7 @@
 <Solution>
   <Project Path="PackCheck/PackCheck.csproj" />
+  <Project Path="PackCheck.Contracts/PackCheck.Contracts.csproj" />
+  <Project Path="PackCheck.Api/PackCheck.Api.csproj" />
+  <Project Path="PackCheck.Tests/PackCheck.Tests.csproj" />
+  <Project Path="PackCheck.ViewModelTests/PackCheck.ViewModelTests.csproj" />
 </Solution>

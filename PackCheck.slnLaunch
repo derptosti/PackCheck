@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "PackCheck + API",
+    "Projects": [
+      {
+        "Path": "PackCheck.Api\\PackCheck.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "PackCheck\\PackCheck.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
